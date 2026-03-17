@@ -30,18 +30,20 @@ We arrange the positive integers in a triangular array and sum reciprocals down 
 \[
 \sum_{n=1}^{\infty} \frac{1}{n} = \sum_{k=1}^{\infty} S^{(k)},
 \]
-while the column sums themselves satisfy $S^{(k)} > 2/k$ for every $k$ and in fact $S^{(k)} \sim 2/k$. This yields a self-similar proof that the harmonic series diverges. This note presents a novel triangular-column variant of the harmonic series divergence proof, adding a structurally distinct approach to the classical literature.
+while the column sums themselves satisfy $S^{(k)} > 2/k$ for every $k$ and in fact $S^{(k)} \sim 2/k$. This yields a self-similar proof that the harmonic series diverges. This note records a triangular-column variant of the harmonic-series divergence proof, offering a structurally distinct perspective on the classical literature.
 \end{abstract}
 
 \section{Introduction}
 
 The harmonic series
 \[
-\sum_{n=1}^{\infty} \frac{1}{n}
+\sum_{n=1}^{\infty}\frac1n
 \]
-is one of the standard examples in analysis, and its divergence has been proved in many different ways. Kifowit and Stamps give a very nice survey of such proofs, ranging from Oresme's classical grouping argument to several contradiction proofs, including one based on triangular-number blocks and another family obtained by grouping terms into twos, threes, fours, and so on \cite{KifowitStamps}. That survey is hard to improve upon as a catalog of entertaining arguments.
+has accumulated a remarkably varied literature of elementary divergence proofs, valued as much for viewpoint and pedagogy as for technical depth. Kifowit and Stamps \cite{KifowitStamps2006} surveyed many such arguments, and Kifowit's later note \cite{Kifowit2019} enlarged that collection further to 45 distinct proofs. Among the recurring motifs are Oresme-type blockings, Bernoulli-style contradiction arguments, triangular-number groupings, telescoping comparisons, and very short proof variants such as those of Bradley \cite{Bradley2000}, Cusumano \cite{Cusumano1998, Cusumano2012}, and Baker \cite{Baker2015}. Historical and expository discussions, such as Dunham’s account of the Bernoullis \cite{Dunham1987}, further illustrate the richness of this classical topic. That survey is hard to improve upon as a catalog of entertaining arguments.
 
-The present note arose from a simple question: what happens if one takes the triangular-number proof and turns it sideways? The answer is unexpectedly pleasant. Instead of grouping the harmonic series \emph{by rows}, one can decompose it \emph{by columns}. Each column turns out to be a convergent reciprocal series with strictly convex denominators, while the sequence of column sums is itself asymptotically harmonic. This leads to an elegant self-referential proof of divergence: the harmonic series breaks into convergent layers whose total masses again behave like a harmonic series.
+The present note adds another member to this expository family: a triangular-array argument obtained by reading the usual row-wise decomposition by columns instead. The resulting column subseries have strictly convex denominators and convergent sums, but the sequence of their total masses is itself asymptotically harmonic, yielding a self-similar contradiction proof of divergence.
+
+The point is not to compete with the classical proofs in simplicity, but to exhibit a different structural feature of the harmonic series: a layered partition into convergent convex subseries whose total masses remain asymptotically harmonic.
 
 \section{The triangular array}
 
@@ -282,12 +284,103 @@ S^{(4)} \approx 0.53564.
 While these closed forms are not needed for the divergence argument, they reinforce the sense that the triangular decomposition has a surprisingly rigid and explicit structure.
 \end{remark}
 
+\begin{proof}[Derivation of the closed forms]
+Let
+\[
+\Delta_k:=\sqrt{8k-1}.
+\]
+Then
+\[
+m^2+m+2k
+=
+\left(m+\frac12-\frac{i\Delta_k}{2}\right)
+\left(m+\frac12+\frac{i\Delta_k}{2}\right),
+\]
+so
+\[
+\frac{2}{m^2+m+2k}
+=
+\frac{2}{i\Delta_k}
+\left(
+\frac{1}{m+\frac12-\frac{i\Delta_k}{2}}
+-
+\frac{1}{m+\frac12+\frac{i\Delta_k}{2}}
+\right).
+\]
+Using the digamma recurrence
+\[
+\psi(z+1)-\psi(z)=\frac1z,
+\]
+see \cite[\href{https://dlmf.nist.gov/5.5.E2}{(5.5.2)}]{NIST:DLMF}, we obtain for \(N\ge k-1\),
+\[
+\sum_{m=k-1}^{N}\frac{2}{m^2+m+2k}
+=
+\frac{2}{i\Delta_k}
+\Bigl[
+\psi\!\left(N+\frac32-\frac{i\Delta_k}{2}\right)
+-\psi\!\left(N+\frac32+\frac{i\Delta_k}{2}\right)
+-\psi\!\left(k-\frac12-\frac{i\Delta_k}{2}\right)
++\psi\!\left(k-\frac12+\frac{i\Delta_k}{2}\right)
+\Bigr].
+\]
+As \(N\to\infty\), the first two terms cancel by the standard asymptotic expansion of
+\(\psi\), see \cite[\href{https://dlmf.nist.gov/5.11.E2}{(5.11.2)}]{NIST:DLMF}. Hence
+\[
+S^{(k)}
+=
+\frac{2}{i\Delta_k}
+\left[
+\psi\!\left(k-\frac12+\frac{i\Delta_k}{2}\right)
+-
+\psi\!\left(k-\frac12-\frac{i\Delta_k}{2}\right)
+\right]
+=
+\frac{4}{\Delta_k}
+\Im \psi\!\left(k-\frac12+\frac{i\Delta_k}{2}\right).
+\]
+
+Now let
+\[
+F_k:=\sum_{m=0}^{\infty}\frac{2}{m^2+m+2k}.
+\]
+The same computation with lower limit \(0\) gives
+\[
+F_k=\frac{4}{\Delta_k}\Im\psi\!\left(\frac12+\frac{i\Delta_k}{2}\right).
+\]
+Using the identity
+\[
+\Im\psi\!\left(\frac12+iy\right)=\frac{\pi}{2}\tanh(\pi y),
+\]
+see \cite[\href{https://dlmf.nist.gov/5.4.E17}{(5.4.17)}]{NIST:DLMF}, we obtain
+\[
+F_k
+=
+\frac{2\pi}{\Delta_k}\tanh\!\left(\frac{\pi\Delta_k}{2}\right).
+\]
+Since
+\[
+S^{(k)}=
+F_k-2\sum_{m=0}^{k-2}\frac{1}{m^2+m+2k}
+\qquad (k\ge 2),
+\]
+this yields
+\[
+S^{(k)}
+=
+\frac{2\pi}{\sqrt{8k-1}}
+\tanh\!\left(\frac{\pi\sqrt{8k-1}}{2}\right)
+-
+2\sum_{m=0}^{k-2}\frac{1}{m^2+m+2k}.
+\]
+For \(k=1\), the finite correction term is absent.
+\end{proof}
+
 \begin{remark}
-There is a close family resemblance between the present argument and several proofs discussed by Kifowit and Stamps \cite{KifowitStamps}. In particular:
+There is a close family resemblance between the present argument and several proofs discussed by Kifowit and Stamps \cite{KifowitStamps2006}. In particular:
 \begin{itemize}
-    \item their Proof~6 is a contradiction proof obtained by grouping the harmonic series into pairs, with the remark that analogous arguments arise from grouping in threes, fours, and so on;
-    \item their Proof~13 uses a telescoping decomposition to derive a contradiction of the form $S=1+S$;
-    \item their Proof~14 groups the harmonic series by triangular-number rows and obtains the contradiction $S>2(S-1)$.
+    \item their Proof~6 is the Gillman--Honsberger pairing argument, with the observation that analogous contradictions arise by grouping in threes, fours, and so on; see also Chowdhury \cite{Chowdhury1975} and the discussion in \cite{Kifowit2019};
+    \item their Proof~13 is the Johann Bernoulli telescoping argument, which derives a contradiction of the form \(S = 1 + S\); see also Dunham \cite{Dunham1987};
+    \item their Proof~14 groups the harmonic series by triangular-number rows and obtains the contradiction \(S > 2(S-1)\).
 \end{itemize}
 While the present note shares a family resemblance with these grouping arguments, its vertical, column-wise partition offers a structurally distinct perspective.
 \end{remark}
@@ -295,13 +388,55 @@ While the present note shares a family resemblance with these grouping arguments
 \section{Conclusion}
 
 The triangular array of positive integers carries two natural directions. Reading by rows gives one of the classical triangular-number proofs of the divergence of the harmonic series. Reading by columns gives a different picture: one obtains convergent reciprocal series with strictly convex denominators, but their total masses remain harmonically large. The resulting proof highlights an elegant and largely unexplored fractal-like property of the harmonic series.
+\begin{thebibliography}{99}
 
-\begin{thebibliography}{9}
-
-\bibitem{KifowitStamps}
-S.~J.~Kifowit and T.~A.~Stamps,
+\bibitem{KifowitStamps2006}
+S. J. Kifowit and T. A. Stamps,
 \emph{The Harmonic Series Diverges Again and Again},
-The AMATYC Review, Spring 2006.
+The AMATYC Review \textbf{27}(2) (2006), 31--43.
+
+\bibitem{Kifowit2019}
+S. J. Kifowit,
+\emph{More Proofs of Divergence of the Harmonic Series},
+unpublished manuscript, first posted January 2006, last updated June 23, 2019.
+
+\bibitem{Bradley2000}
+D. M. Bradley,
+\emph{A note on the divergence of the harmonic series},
+Amer. Math. Monthly \textbf{107} (2000), 651.
+
+\bibitem{Baker2015}
+R. L. Baker,
+\emph{An exceedingly short proof that the harmonic series diverges},
+Missouri J. Math. Sci. \textbf{27}(1) (2015), 95--96.
+
+\bibitem{Cusumano1998}
+A. Cusumano,
+\emph{The harmonic series diverges},
+Amer. Math. Monthly \textbf{105}(7) (1998), 608.
+
+\bibitem{Cusumano2012}
+A. Cusumano,
+\emph{Generalization of Oresme's standard method of showing the divergence of the harmonic series},
+Amer. Math. Monthly \textbf{119} (2012), 210.
+
+\bibitem{Dunham1987}
+W. Dunham,
+\emph{The Bernoullis and the harmonic series},
+College Math. J. \textbf{18}(1) (1987), 18--23.
+
+\bibitem{Chowdhury1975}
+M. R. Chowdhury,
+\emph{The harmonic series again},
+Math. Gazette \textbf{59}(409) (1975), 186.
+
+\bibitem{NIST:DLMF}
+\emph{NIST Digital Library of Mathematical Functions},
+\url{https://dlmf.nist.gov/},
+Release 1.2.5 of 2025-12-15,
+F.~W.~J. Olver, A.~B. Olde Daalhuis, D.~W. Lozier, B.~I. Schneider,
+R.~F. Boisvert, C.~W. Clark, B.~R. Miller, B.~V. Saunders,
+H.~S. Cohl, and M.~A. McClain, eds.
 
 \end{thebibliography}
 
